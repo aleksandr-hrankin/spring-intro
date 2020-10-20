@@ -7,7 +7,7 @@ public interface DtoMapper {
     /**
      * This method accepts a User and writes all his fields to a UserResponseDto.
      *
-     * @param user
+     * @param user - User model
      * @return UserResponseDto
      */
     UserResponseDto mapByUser(User user);
