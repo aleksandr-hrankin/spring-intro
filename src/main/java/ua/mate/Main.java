@@ -15,6 +15,6 @@ public class Main {
         User alice = new User("alice", "1234");
         userService.add(bob);
         userService.add(alice);
-        userService.listUsers().forEach(System.out::println);
+        userService.getAll().forEach(System.out::println);
     }
 }

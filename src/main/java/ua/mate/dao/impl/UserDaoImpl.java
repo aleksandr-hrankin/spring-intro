@@ -1,6 +1,8 @@
 package ua.mate.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -46,6 +48,18 @@ public class UserDaoImpl implements UserDao {
             return getUsersQuery.getResultList();
         } catch (Exception e) {
             throw new DataProcessionException("Can't get users", e);
+        }
+    }
+
+    @Override
+    public User getById(Long id) {
+        try (Session session = sessionFactory.openSession().getSession()) {
+            Query<User> getUserByIdQuery = session.createQuery("from User u "
+                    + "where u.id = :id", User.class);
+            getUserByIdQuery.setParameter("id", id);
+            return getUserByIdQuery.getSingleResult();
+        } catch (Exception e) {
+            throw new DataProcessionException("Can't get user by id " + id, e);
         }
     }
 }
