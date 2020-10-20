@@ -1,5 +1,7 @@
 package ua.mate.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.mate.dto.UserResponseDto;
 import ua.mate.model.User;
 import ua.mate.service.UserService;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -33,7 +33,7 @@ public class UserController {
         return userToDto(userService.getById(id));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<UserResponseDto> getAll() {
         return userService.getAll().stream()
                 .map(this::userToDto)
