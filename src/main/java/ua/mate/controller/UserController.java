@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.mate.dto.UserResponseDto;
+import ua.mate.dto.mapper.DtoMapper;
 import ua.mate.model.User;
 import ua.mate.service.UserService;
 
@@ -14,9 +15,11 @@ import ua.mate.service.UserService;
 @RequestMapping("/users")
 public class UserController {
     private UserService userService;
+    private DtoMapper dtoMapper;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, DtoMapper dtoMapper) {
         this.userService = userService;
+        this.dtoMapper = dtoMapper;
     }
 
     @GetMapping("/inject")
@@ -30,21 +33,13 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserResponseDto get(@PathVariable Long id) {
-        return userToDto(userService.getById(id));
+        return dtoMapper.mapByUser(userService.getById(id));
     }
 
     @GetMapping
     public List<UserResponseDto> getAll() {
         return userService.getAll().stream()
-                .map(this::userToDto)
+                .map(dtoMapper::mapByUser)
                 .collect(Collectors.toList());
-    }
-
-    private UserResponseDto userToDto(User user) {
-        UserResponseDto userDto = new UserResponseDto();
-        userDto.setId(user.getId());
-        userDto.setLogin(user.getLogin());
-        userDto.setPassword(user.getPassword());
-        return userDto;
     }
 }
