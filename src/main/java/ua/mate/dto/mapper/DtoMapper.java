@@ -1,14 +1,16 @@
 package ua.mate.dto.mapper;
 
+import org.springframework.stereotype.Component;
 import ua.mate.dto.UserResponseDto;
 import ua.mate.model.User;
 
-public interface DtoMapper {
-    /**
-     * This method accepts a User and writes all his fields to a UserResponseDto.
-     *
-     * @param user - User model
-     * @return UserResponseDto
-     */
-    UserResponseDto mapByUser(User user);
+@Component
+public class DtoMapper {
+    public UserResponseDto mapUserToDto(User user) {
+        UserResponseDto userResponseDto = new UserResponseDto();
+        userResponseDto.setId(user.getId());
+        userResponseDto.setLogin(user.getLogin());
+        userResponseDto.setPassword(user.getPassword());
+        return userResponseDto;
+    }
 }

@@ -9,15 +9,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import ua.mate.dto.mapper.DtoMapper;
-import ua.mate.dto.mapper.DtoMapperImpl;
 import ua.mate.model.User;
 
 @Configuration
 @PropertySource("classpath:app.properties")
 @ComponentScan(basePackages = {
         "ua.mate.dao",
-        "ua.mate.service"
+        "ua.mate.service",
+        "ua.mate.dto.mapper"
 })
 public class AppConfig {
     private final Environment environment;
@@ -48,10 +47,5 @@ public class AppConfig {
         sessionFactoryBean.setHibernateProperties(properties);
         sessionFactoryBean.setAnnotatedClasses(User.class);
         return sessionFactoryBean;
-    }
-
-    @Bean
-    public DtoMapper getDtoMapper() {
-        return new DtoMapperImpl();
     }
 }

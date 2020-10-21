@@ -14,8 +14,8 @@ import ua.mate.service.UserService;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private UserService userService;
-    private DtoMapper dtoMapper;
+    private final UserService userService;
+    private final DtoMapper dtoMapper;
 
     public UserController(UserService userService, DtoMapper dtoMapper) {
         this.userService = userService;
@@ -33,13 +33,13 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserResponseDto get(@PathVariable Long id) {
-        return dtoMapper.mapByUser(userService.getById(id));
+        return dtoMapper.mapUserToDto(userService.getById(id));
     }
 
     @GetMapping
     public List<UserResponseDto> getAll() {
         return userService.getAll().stream()
-                .map(dtoMapper::mapByUser)
+                .map(dtoMapper::mapUserToDto)
                 .collect(Collectors.toList());
     }
 }
