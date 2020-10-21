@@ -6,5 +6,7 @@ import ua.mate.model.User;
 public interface UserService {
     void add(User user);
 
-    List<User> listUsers();
+    User getById(Long id);
+
+    List<User> getAll();
 }

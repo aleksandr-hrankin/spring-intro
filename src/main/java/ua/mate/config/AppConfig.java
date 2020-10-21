@@ -15,7 +15,8 @@ import ua.mate.model.User;
 @PropertySource("classpath:app.properties")
 @ComponentScan(basePackages = {
         "ua.mate.dao",
-        "ua.mate.service"
+        "ua.mate.service",
+        "ua.mate.dto.mapper"
 })
 public class AppConfig {
     private final Environment environment;

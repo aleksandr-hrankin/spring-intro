@@ -48,4 +48,13 @@ public class UserDaoImpl implements UserDao {
             throw new DataProcessionException("Can't get users", e);
         }
     }
+
+    @Override
+    public User getById(Long id) {
+        try (Session session = sessionFactory.openSession().getSession()) {
+            return session.get(User.class, id);
+        } catch (Exception e) {
+            throw new DataProcessionException("Can't get user by id " + id, e);
+        }
+    }
 }
